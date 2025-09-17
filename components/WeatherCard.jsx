@@ -197,7 +197,13 @@ const WeatherDetail = ({ icon, label, value }) => (
 const ForecastItem = ({ forecast }) => (
 	<View style={styles.forecastItem}>
 		<Text style={styles.forecastDay}>
-			{forecast.datetime.toLocaleDateString("en", { weekday: "short" })}
+			{(() => {
+				let dateObj = forecast.datetime;
+				if (!(dateObj instanceof Date)) {
+					dateObj = new Date(dateObj);
+				}
+				return dateObj.toLocaleDateString("en", { weekday: "short" });
+			})()}
 		</Text>
 		<Image
 			source={{ uri: forecast.weather.iconUrl }}
@@ -219,6 +225,7 @@ const styles = StyleSheet.create({
 		backgroundColor: "white",
 		borderRadius: 12,
 		padding: 16,
+		marginTop: 60,
 		marginVertical: 8,
 		shadowColor: "#000",
 		shadowOffset: { width: 0, height: 2 },

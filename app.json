@@ -46,7 +46,8 @@
         }
       ],
       "expo-secure-store",
-      "expo-sqlite"
+      "expo-sqlite",
+      "expo-barcode-scanner"
     ],
     "experiments": {
       "typedRoutes": true,
