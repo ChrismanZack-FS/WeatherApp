@@ -14,6 +14,7 @@
 		"services/apiClient.js",
 		"services/weatherservices.js",
 		"config/environment.js",
-		"app/(tabs)/index.jsx"
+		"app/(tabs)/index.jsx",
+		"components/CameraScreen.jsx"
 	]
 }
