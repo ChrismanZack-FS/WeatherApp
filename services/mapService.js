@@ -1,11 +1,22 @@
-import createApiClient from "./apiClient";
+import { Platform } from "react-native";
 import { config } from "../config/environment";
+import createApiClient from "./apiClient";
 class MapService {
 	constructor() {
-		this.client = createApiClient(config.MAPBOX_BASE_URL);
+		if (Platform.OS === "web") {
+			this.isWeb = true;
+			this.client = null;
+		} else {
+			this.isWeb = false;
+			this.client = createApiClient(config.MAPBOX_BASE_URL);
+		}
 	}
 	// Geocoding - convert address to coordinates
 	async geocode(query, options = {}) {
+		if (this.isWeb) {
+			console.warn("Map geocoding is not supported on web.");
+			return [];
+		}
 		try {
 			const response = await this.client.get(
 				"/geocoding/v5/mapbox.places/" + encodeURIComponent(query) + ".json",
@@ -44,6 +55,10 @@ class MapService {
 	}
 	// Reverse geocoding - convert coordinates to address
 	async reverseGeocode(latitude, longitude, options = {}) {
+		if (this.isWeb) {
+			console.warn("Map reverse geocoding is not supported on web.");
+			return null;
+		}
 		try {
 			const response = await this.client.get(
 				`/geocoding/v5/mapbox.places/${longitude},${latitude}.json`,
@@ -81,6 +96,10 @@ class MapService {
 	}
 	// Get directions between points
 	async getDirections(coordinates, options = {}) {
+		if (this.isWeb) {
+			console.warn("Map directions are not supported on web.");
+			return null;
+		}
 		try {
 			const profile = options.profile || "driving";
 			const coordString = coordinates
@@ -123,6 +142,10 @@ class MapService {
 	}
 	// Generate static map image URL
 	generateStaticMapUrl(options = {}) {
+		if (this.isWeb) {
+			console.warn("Static map images are not supported on web.");
+			return null;
+		}
 		const {
 			latitude,
 			longitude,

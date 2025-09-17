@@ -2,25 +2,25 @@ import Constants from "expo-constants";
 // Environment-specific configuration
 const ENV = {
 	development: {
-		WEATHER_API_KEY: "78861b0d63e52c00ce007d16888c38d1",
+		WEATHER_API_KEY: process.env.EXPO_PUBLIC_WEATHER_API_KEY,
 		WEATHER_BASE_URL: "https://api.openweathermap.org/data/2.5",
-		MAPBOX_API_KEY: "dev_mapbox_key_here",
+		MAPBOX_API_KEY: process.env.EXPO_PUBLIC_MAPBOX_API_KEY,
 		MAPBOX_BASE_URL: "https://api.mapbox.com",
 		SOCIAL_API_BASE_URL: "http://localhost:3000/api",
 		DEBUG_API_CALLS: true,
 	},
 	staging: {
-		WEATHER_API_KEY: "78861b0d63e52c00ce007d16888c38d1",
+		WEATHER_API_KEY: process.env.EXPO_PUBLIC_WEATHER_API_KEY,
 		WEATHER_BASE_URL: "https://api.openweathermap.org/data/2.5",
-		MAPBOX_API_KEY: "staging_mapbox_key_here",
+		MAPBOX_API_KEY: process.env.EXPO_PUBLIC_MAPBOX_API_KEY,
 		MAPBOX_BASE_URL: "https://api.mapbox.com",
 		SOCIAL_API_BASE_URL: "https://staging-api.example.com/api",
 		DEBUG_API_CALLS: false,
 	},
 	production: {
-		WEATHER_API_KEY: Constants.expoConfig?.extra?.weatherApiKey,
+		WEATHER_API_KEY: process.env.EXPO_PUBLIC_WEATHER_API_KEY,
 		WEATHER_BASE_URL: "https://api.openweathermap.org/data/2.5",
-		MAPBOX_API_KEY: Constants.expoConfig?.extra?.mapboxApiKey,
+		MAPBOX_API_KEY: process.env.EXPO_PUBLIC_MAPBOX_API_KEY,
 		MAPBOX_BASE_URL: "https://api.mapbox.com",
 		SOCIAL_API_BASE_URL: "https://api.example.com/api",
 		DEBUG_API_CALLS: false,

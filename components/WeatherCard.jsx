@@ -1,14 +1,14 @@
-import React, { useState, useEffect } from "react";
-import {
-	View,
-	Text,
-	StyleSheet,
-	ActivityIndicator,
-	TouchableOpacity,
-	Image,
-	Alert,
-} from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import React, { useEffect, useState } from "react";
+import {
+	ActivityIndicator,
+	Alert,
+	Image,
+	StyleSheet,
+	Text,
+	TouchableOpacity,
+	View,
+} from "react-native";
 import weatherService from "../services/weatherservices.js";
 const WeatherCard = ({
 	location,
@@ -194,20 +194,26 @@ const WeatherDetail = ({ icon, label, value }) => (
 	</View>
 );
 // Helper component for forecast items
-const ForecastItem = ({ forecast }) => (
-	<View style={styles.forecastItem}>
-		<Text style={styles.forecastDay}>
-			{forecast.datetime.toLocaleDateString("en", { weekday: "short" })}
-		</Text>
-		<Image
-			source={{ uri: forecast.weather.iconUrl }}
-			style={styles.forecastIcon}
-		/>
-		<Text style={styles.forecastTemp}>
-			{forecast.temperature.max}°/{forecast.temperature.min}°
-		</Text>
-	</View>
-);
+const ForecastItem = ({ forecast }) => {
+	let dateObj = forecast.datetime;
+	if (!(dateObj instanceof Date)) {
+		dateObj = new Date(dateObj);
+	}
+	return (
+		<View style={styles.forecastItem}>
+			<Text style={styles.forecastDay}>
+				{dateObj.toLocaleDateString("en", { weekday: "short" })}
+			</Text>
+			<Image
+				source={{ uri: forecast.weather.iconUrl }}
+				style={styles.forecastIcon}
+			/>
+			<Text style={styles.forecastTemp}>
+				{forecast.temperature.max}°/{forecast.temperature.min}°
+			</Text>
+		</View>
+	);
+};
 // Helper function for wind direction
 const getWindDirection = (degrees) => {
 	const directions = ["N", "NE", "E", "SE", "S", "SW", "W", "NW"];
