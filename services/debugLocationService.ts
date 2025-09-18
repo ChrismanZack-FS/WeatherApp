@@ -28,6 +28,7 @@ class DebugLocationService {
 				errors: ["Starting location request"],
 			}
 		);
+
 		try {
 			// Check permissions first
 			const permissionResult = await this.checkPermissionsWithDebug();
@@ -49,10 +50,31 @@ class DebugLocationService {
 				timeInterval: 10000,
 				distanceInterval: 100,
 			});
-			const coords = {
+			let coords = {
 				latitude: location.coords.latitude,
 				longitude: location.coords.longitude,
 			};
+			let accuracy = location.coords.accuracy;
+			// Try to get more accurate location if needed
+			if (accuracy && accuracy > 1000) {
+				const betterLocation = await Location.getCurrentPositionAsync({
+					accuracy: Location.Accuracy.High,
+				});
+				if (
+					betterLocation.coords.accuracy !== null &&
+					betterLocation.coords.accuracy < accuracy
+				) {
+					coords = {
+						latitude: betterLocation.coords.latitude,
+						longitude: betterLocation.coords.longitude,
+					};
+					accuracy = betterLocation.coords.accuracy;
+				}
+			}
+			// Null Island check
+			if (coords.latitude === 0 && coords.longitude === 0) {
+				throw new Error("Invalid coordinates: received Null Island (0,0)");
+			}
 			// Validate coordinates
 			const validation = locationDebugger.validateCoordinates(
 				coords.latitude,

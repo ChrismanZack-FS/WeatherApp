@@ -36,6 +36,12 @@ class DebugWeatherService {
 				params: debugInfo.requestParams,
 				timeout: 10000,
 			});
+			// Check for API errors
+			if (response.status === 401) {
+				throw new Error("Invalid API key");
+			} else if (response.status === 429) {
+				throw new Error("API rate limit exceeded");
+			}
 			debugInfo.responseData = response.data;
 			// Check for coordinate mismatch
 			const responseCoords = {
