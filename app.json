@@ -1,5 +1,4 @@
 {
-
 	"expo": {
 		"name": "WeatherApp",
 		"slug": "WeatherApp",
@@ -57,5 +56,4 @@
 		},
 		"assetBundlePatterns": ["**/*"]
 	}
-
- 
+}
