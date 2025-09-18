@@ -3,6 +3,7 @@ import * as FileSystem from "expo-file-system";
 import * as ImageManipulator from "expo-image-manipulator";
 import * as ImagePicker from "expo-image-picker";
 import * as MediaLibrary from "expo-media-library";
+
 class CameraService {
 	constructor() {
 		this.cameraRef = null;

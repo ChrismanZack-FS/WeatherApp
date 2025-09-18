@@ -26,7 +26,7 @@ class WeatherService {
 					lat,
 					lon,
 					appid: config.WEATHER_API_KEY,
-					units: options.units || "metric",
+					units: options.units || "imperial",
 					lang: options.language || "en",
 				},
 			});
@@ -64,7 +64,7 @@ class WeatherService {
 					lat,
 					lon,
 					appid: config.WEATHER_API_KEY,
-					units: options.units || "metric",
+					units: options.units || "imperial",
 					lang: options.language || "en",
 					cnt: options.count || 40, // 5 days, 3-hour intervals
 				},
@@ -91,7 +91,7 @@ class WeatherService {
 				params: {
 					q: cityName,
 					appid: config.WEATHER_API_KEY,
-					units: options.units || "metric",
+					units: options.units || "imperial",
 					lang: options.language || "en",
 				},
 			});

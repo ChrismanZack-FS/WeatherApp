@@ -1,3 +1,4 @@
+
 import { Ionicons } from "@expo/vector-icons";
 import { CameraView, useCameraPermissions } from "expo-camera";
 import * as Haptics from "expo-haptics";
@@ -12,6 +13,7 @@ import {
 	TouchableOpacity,
 	View,
 } from "react-native";
+
 import barcodeService from "../services/barcodeService";
 const { width: screenWidth, height: screenHeight } = Dimensions.get("window");
 const QRCodeScanner = ({

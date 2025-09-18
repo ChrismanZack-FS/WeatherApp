@@ -1,5 +1,7 @@
+
 import { StyleSheet } from "react-native";
 import WeatherCard from "../../components/WeatherCard";
+
 
 export default function HomeScreen() {
 	return (

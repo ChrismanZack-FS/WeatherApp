@@ -1,17 +1,24 @@
+
 import { Ionicons } from "@expo/vector-icons";
-import { CameraView, useCameraPermissions, VideoQuality } from "expo-camera";
 import * as Haptics from "expo-haptics";
 import React, { useEffect, useRef, useState } from "react";
 import {
-	Alert,
+	View,
+	Text,
+	StyleSheet,
+	TouchableOpacity,
+  Alert,
 	Dimensions,
 	SafeAreaView,
 	StatusBar,
-	StyleSheet,
-	Text,
-	TouchableOpacity,
-	View,
 } from "react-native";
+import {
+	CameraView,
+	CameraType,
+	useCameraPermissions,
+	FlashMode,
+	VideoQuality,
+} from "expo-camera";
 import cameraService from "../services/cameraService";
 const { width: screenWidth, height: screenHeight } = Dimensions.get("window");
 const CameraScreen = ({

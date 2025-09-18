@@ -1,7 +1,9 @@
 // Fallback for using MaterialIcons on Android and web.
 
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
+
 import { SymbolViewProps, SymbolWeight } from "expo-symbols";
+
 import { ComponentProps } from "react";
 import { OpaqueColorValue, type StyleProp, type TextStyle } from "react-native";
 
@@ -22,10 +24,12 @@ const MAPPING = {
 	"chevron.left.forwardslash.chevron.right": "code",
 	"chevron.right": "chevron-right",
 	"camera.fill": "photo-camera",
+
 	barcode: "qr-code",
 	"mappin.and.ellipse": "location-on",
 	"waveform.path.ecg": "show-chart",
 	gamecontroller: "sports-esports",
+
 } as IconMapping;
 
 /*

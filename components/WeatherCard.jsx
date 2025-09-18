@@ -194,6 +194,7 @@ const WeatherDetail = ({ icon, label, value }) => (
 	</View>
 );
 // Helper component for forecast items
+
 const ForecastItem = ({ forecast }) => {
 	let dateObj = forecast.datetime;
 	if (!(dateObj instanceof Date)) {
@@ -214,6 +215,7 @@ const ForecastItem = ({ forecast }) => {
 		</View>
 	);
 };
+
 // Helper function for wind direction
 const getWindDirection = (degrees) => {
 	const directions = ["N", "NE", "E", "SE", "S", "SW", "W", "NW"];
@@ -225,6 +227,7 @@ const styles = StyleSheet.create({
 		backgroundColor: "white",
 		borderRadius: 12,
 		padding: 16,
+		marginTop: 60,
 		marginVertical: 8,
 		shadowColor: "#000",
 		shadowOffset: { width: 0, height: 2 },
