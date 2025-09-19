@@ -44,13 +44,12 @@ export default function TabLayout() {
 					),
 				}}
 			/>
-
 			<Tabs.Screen
-				name="debug"
+				name="map"
 				options={{
-					title: "Debug",
+					title: "Map",
 					tabBarIcon: ({ color }) => (
-						<IconSymbol size={28} name="gamecontroller.fill" color={color} />
+						<IconSymbol size={28} name="map.fill" color={color} />
 					),
 				}}
 			/>

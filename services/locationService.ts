@@ -1,5 +1,6 @@
 import * as Location from "expo-location";
 import { Platform } from "react-native";
+
 export interface LocationCoordinates {
 	latitude: number;
 	longitude: number;
@@ -22,6 +23,7 @@ export interface GeofenceRegion {
 	notifyOnEntry?: boolean;
 	notifyOnExit?: boolean;
 }
+
 class LocationService {
 	private static instance: LocationService;
 	private locationSubscription: Location.LocationSubscription | null = null;
@@ -35,23 +37,70 @@ class LocationService {
 	// Request location permissions with platform-specific handling
 	async requestLocationPermissions(): Promise<boolean> {
 		try {
-			let { status } = await Location.requestForegroundPermissionsAsync();
-
-			if (status !== "granted") {
-				console.warn("Location permission denied");
+			let foregroundResult = await Location.requestForegroundPermissionsAsync();
+			if (!foregroundResult || typeof foregroundResult.status !== "string") {
+				console.error("Location permission error: Invalid response from API");
 				return false;
 			}
+			if (
+				foregroundResult.status === "denied" ||
+				foregroundResult.status === "undetermined"
+			) {
+				console.warn("Location permission denied by user or undetermined");
+				if (foregroundResult.canAskAgain === false) {
+					console.error(
+						"User has permanently denied location permission. Please enable it in device settings."
+					);
+				}
+				return false;
+			}
+			if (foregroundResult.status !== "granted") {
+				console.warn(
+					`Location permission not granted: ${foregroundResult.status}`
+				);
+				return false;
+			}
+
 			// Request background location if needed (iOS/Android only)
 			if (Platform.OS !== "web") {
-				const backgroundStatus =
-					await Location.requestBackgroundPermissionsAsync();
-				if (backgroundStatus.status !== "granted") {
-					console.warn("Background location permission denied");
+				try {
+					const backgroundStatus =
+						await Location.requestBackgroundPermissionsAsync();
+					if (
+						!backgroundStatus ||
+						typeof backgroundStatus.status !== "string"
+					) {
+						console.error(
+							"Background location permission error: Invalid response from API"
+						);
+					} else if (
+						backgroundStatus.status === "denied" ||
+						backgroundStatus.status === "undetermined"
+					) {
+						console.warn(
+							"Background location permission denied or undetermined"
+						);
+						if (backgroundStatus.canAskAgain === false) {
+							console.error(
+								"User has permanently denied background location permission. Please enable it in device settings."
+							);
+						}
+					} else if (backgroundStatus.status !== "granted") {
+						console.warn(
+							`Background location permission not granted: ${backgroundStatus.status}`
+						);
+					}
+				} catch (bgError) {
+					console.error("Background location permission error:", bgError);
 				}
 			}
 			return true;
 		} catch (error) {
-			console.error("Location permission error:", error);
+			if (error instanceof Error) {
+				console.error("Location permission error:", error.message);
+			} else {
+				console.error("Location permission error: Unknown error", error);
+			}
 			return false;
 		}
 	}

@@ -5,9 +5,9 @@ import {
 	Alert,
 	Platform,
 	StyleSheet,
-	Text,
 	TouchableOpacity,
 	View,
+	Text,
 } from "react-native";
 import MapView, { Circle, Marker, Region } from "react-native-maps";
 import locationService, {
@@ -28,7 +28,7 @@ interface LocationMapProps {
 	onGeofenceEnter?: (region: GeofenceRegion) => void;
 	onGeofenceExit?: (region: GeofenceRegion) => void;
 }
-export const LocationMap: React.FC<LocationMapProps> = ({
+function LocationMap({
 	initialRegion,
 	showUserLocation = true,
 	geofenceRegions = [],
@@ -36,7 +36,7 @@ export const LocationMap: React.FC<LocationMapProps> = ({
 	onLocationUpdate,
 	onGeofenceEnter,
 	onGeofenceExit,
-}) => {
+}: LocationMapProps) {
 	const [userLocation, setUserLocation] = useState<LocationCoordinates | null>(
 		null
 	);
@@ -224,7 +224,9 @@ export const LocationMap: React.FC<LocationMapProps> = ({
 			)}
 		</View>
 	);
-};
+}
+
+export default LocationMap;
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,

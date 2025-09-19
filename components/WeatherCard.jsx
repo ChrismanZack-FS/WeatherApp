@@ -23,6 +23,7 @@ const WeatherCard = ({
 	const [refreshing, setRefreshing] = useState(false);
 	useEffect(() => {
 		if (location) {
+			console.log("WeatherCard location prop:", location);
 			loadWeatherData();
 		}
 	}, [location]);
@@ -31,7 +32,10 @@ const WeatherCard = ({
 			setLoading(!forceRefresh);
 			setRefreshing(forceRefresh);
 			setError(null);
-			const { lat, lon } = location;
+			// Support both { lat, lon } and { latitude, longitude }
+			const lat = location.lat ?? location.latitude;
+			const lon = location.lon ?? location.longitude;
+			console.log("WeatherCard using lat/lon:", lat, lon);
 
 			// Load current weather
 			const currentWeather = await weatherService.getCurrentWeather(lat, lon, {

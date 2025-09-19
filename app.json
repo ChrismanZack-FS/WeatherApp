@@ -10,7 +10,13 @@
 		"newArchEnabled": true,
 		"platforms": ["ios", "android", "web"],
 		"ios": {
-			"supportsTablet": true
+			"supportsTablet": true,
+			"infoPlist": {
+				"NSLocationAlwaysAndWhenInUseUsageDescription": "Allow WeatherApp to use your location.",
+				"NSLocationAlwaysUsageDescription": "Allow WeatherApp to use your location in the background.",
+				"NSLocationWhenInUseUsageDescription": "Allow WeatherApp to use your location when the app is open."
+			},
+			"bundleIdentifier": "com.anonymous.WeatherApp"
 		},
 		"android": {
 			"adaptiveIcon": {
@@ -20,7 +26,9 @@
 				"monochromeImage": "./assets/images/android-icon-monochrome.png"
 			},
 			"edgeToEdgeEnabled": true,
-			"predictiveBackGestureEnabled": false
+			"predictiveBackGestureEnabled": false,
+
+			"package": "com.anonymous.WeatherApp"
 		},
 		"web": {
 			"bundler": "metro",
@@ -42,9 +50,20 @@
 				}
 			],
 			[
+				"expo-camera",
+				{
+					"cameraPermission": "Allow $(PRODUCT_NAME) to access your camera",
+					"microphonePermission": "Allow $(PRODUCT_NAME) to access your microphone",
+					"recordAudioAndroid": true
+				}
+			],
+			[
 				"expo-location",
 				{
-					"locationAlwaysAndWhenInUsePermission": "Allow $(PRODUCT_NAME) to use your location."
+					"locationAlwaysAndWhenInUsePermission": "Allow $(PRODUCT_NAME) to use your location.",
+					"locationAlwaysPermission": "Allow $(PRODUCT_NAME) to use your location in the background.",
+					"locationWhenInUsePermission": "Allow $(PRODUCT_NAME) to use your location when the app is open.",
+					"isIosBackgroundLocationEnabled": true
 				}
 			],
 			"expo-secure-store",
